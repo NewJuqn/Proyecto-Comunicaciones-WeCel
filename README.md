@@ -1,2 +1,5 @@
-# Proyecto-Comunicaciones-WeCel
-Proyecto de progra I, realizado por Juan Sebastian Parra Alvarez  y Juan Jose Molina Chaparro.
+# Proyecto Comunicaciones WeCel
+## Proyecto de programación I
+### Realizado por: 
+Juan Sebastian Parra Alvarez  
+Juan Jose Molina Chaparro.
