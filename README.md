@@ -1,5 +1,5 @@
 # Proyecto Comunicaciones WeCel
 ## Proyecto de programación I
 ### Realizado por: 
-Juan Sebastian Parra Alvarez  
+Julian Andres Gomez Solano  
 Juan Jose Molina Chaparro.
