@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Cliente extends Usuario {
     private ArrayList<Plan> planes;
 
-    public Cliente(int id, String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
+    public Cliente(String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
             String ciudad, String contrasena) {
-        super(id, nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
+        super(nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
         this.planes = new ArrayList<>();
     }
 

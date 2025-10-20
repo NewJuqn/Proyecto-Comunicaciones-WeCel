@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Usuario {
     private int id;
+    private static int contadorID = 1000000;
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
@@ -11,9 +12,9 @@ public class Usuario {
     private String estado;
     private String ciudad;
     private String contrasena;
-    public Usuario(int id, String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
+    public Usuario(String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
             String ciudad, String contrasena) {
-        this.id = id;
+        this.id = contadorID++;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
