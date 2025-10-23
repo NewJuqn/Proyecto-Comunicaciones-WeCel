@@ -7,8 +7,8 @@ public class Peticion extends PQRS {
     private String conceptoSolucion;
 
     public Peticion(LocalDate fechaRegistro, String descripcion, boolean resuelta,
-            String conceptoSolucion) {
-        super(fechaRegistro, descripcion);
+            String conceptoSolucion, Plan planPQRS) {
+        super(fechaRegistro, descripcion, planPQRS);
         this.resuelta = resuelta;
         this.conceptoSolucion = conceptoSolucion;
     }

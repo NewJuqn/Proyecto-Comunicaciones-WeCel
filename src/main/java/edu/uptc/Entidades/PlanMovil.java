@@ -36,7 +36,7 @@ public class PlanMovil extends Plan {
 
     @Override
     public String mostrarDetallesPlan() {
-        return "Plan Móvil [ID=" + super.getIdPlan() + ", minutos=" + minutos + ", gigas=" + gigas + "]";
+        return "Plan Móvil [ID=" + super.getIdPlan() + ", minutos=" + this.minutos + ", gigas=" + this.gigas + "]";
     }
 
     @Override
@@ -45,8 +45,8 @@ public class PlanMovil extends Plan {
                 ", Fecha=" + super.getFechaAdquisicion() +
                 ", Valor=" + super.getValorServicio() +
                 ", Descuento=" + super.getDescuento() + "%" +
-                ", Minutos=" + minutos +
-                ", Gigas=" + gigas + "]";
+                ", Minutos=" + this.minutos +
+                ", Gigas=" + this.gigas + "]";
     }
 
 }
