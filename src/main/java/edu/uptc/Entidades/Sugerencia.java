@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class Sugerencia extends PQRS {
     private int nivelImportancia;
 
-    public Sugerencia(LocalDate fechaRegistro, String descripcion, int nivelImportancia) {
-        super(fechaRegistro, descripcion);
+    public Sugerencia(LocalDate fechaRegistro, String descripcion, int nivelImportancia, Plan planPQRS) {
+        super(fechaRegistro, descripcion, planPQRS);
         this.nivelImportancia = nivelImportancia;
     }
 

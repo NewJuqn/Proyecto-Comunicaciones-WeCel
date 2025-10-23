@@ -6,8 +6,8 @@ public class Queja extends PQRS {
     private int nivelInconformismo;
     private boolean revisada;
 
-    public Queja(LocalDate fechaRegistro, String descripcion, int nivelInconformismo, boolean revisada) {
-        super(fechaRegistro, descripcion);
+    public Queja(LocalDate fechaRegistro, String descripcion, int nivelInconformismo, boolean revisada, Plan planPQRS) {
+        super(fechaRegistro, descripcion, planPQRS);
         this.nivelInconformismo = nivelInconformismo;
         this.revisada = revisada;
     }

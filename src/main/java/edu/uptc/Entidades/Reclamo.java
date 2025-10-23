@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class Reclamo extends PQRS {
     private String recursoCompensacion;
 
-    public Reclamo(LocalDate fechaRegistro, String descripcion, String recursoCompensacion) {
-        super(fechaRegistro, descripcion);
+    public Reclamo(LocalDate fechaRegistro, String descripcion, String recursoCompensacion, Plan planPQRS) {
+        super(fechaRegistro, descripcion, planPQRS);
         this.recursoCompensacion = recursoCompensacion;
     }
 
@@ -25,7 +25,7 @@ public class Reclamo extends PQRS {
 
     @Override
     public void procesar() {
-        recursoCompensacion = "Compensación procesada.";
+        this.recursoCompensacion = "Compensación procesada.";
     }
 
     @Override

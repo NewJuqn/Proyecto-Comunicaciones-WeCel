@@ -3,22 +3,14 @@ package edu.uptc.Entidades;
 import java.time.LocalDate;
 
 public class PlanHogar extends Plan {
-    private boolean tvDigital;
+    private String tipoTV;
     private double megas;
 
-    public PlanHogar(LocalDate fechaAdquisicion, double valorServicio, double descuento, boolean tvDigital,
+    public PlanHogar(LocalDate fechaAdquisicion, double valorServicio, double descuento, String tipoTV,
             double megas) {
         super(fechaAdquisicion, valorServicio, descuento);
-        this.tvDigital = tvDigital;
+        this.tipoTV = tipoTV;
         this.megas = megas;
-    }
-
-    public boolean isTvDigital() {
-        return tvDigital;
-    }
-
-    public void setTvDigital(boolean tvDigital) {
-        this.tvDigital = tvDigital;
     }
 
     public double getMegas() {
@@ -37,8 +29,7 @@ public class PlanHogar extends Plan {
 
     @Override
     public String mostrarDetallesPlan() {
-        String tipoTV = tvDigital ? "TV Digital" : "TV Análoga";
-        return "Plan Hogar [ID=" + super.getIdPlan() + ", " + tipoTV + ", megas=" + megas + "]";
+        return "Plan Hogar [ID=" + super.getIdPlan() + ", " + this.tipoTV + ", megas=" + this.megas + "]";
     }
 
     @Override
@@ -47,8 +38,16 @@ public class PlanHogar extends Plan {
                 ", Fecha=" + super.getFechaAdquisicion() +
                 ", Valor=" + super.getValorServicio() +
                 ", Descuento=" + super.getDescuento() + "%" +
-                ", TV=" + (tvDigital ? "Digital" : "Análoga") +
-                ", Megas=" + megas + "]";
+                ", TV=" + (this.tipoTV) +
+                ", Megas=" + this.megas + "]";
+    }
+
+    public String getTipoTV() {
+        return tipoTV;
+    }
+
+    public void setTipoTV(String tipoTV) {
+        this.tipoTV = tipoTV;
     }
 
 }
