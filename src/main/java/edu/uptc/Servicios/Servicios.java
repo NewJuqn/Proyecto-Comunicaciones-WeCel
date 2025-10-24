@@ -7,13 +7,11 @@ import edu.uptc.Entidades.*;
 
 public class Servicios {
     private ArrayList<Usuario> usuarios;
-    private ArrayList<PQRS> PQRSs;
     private int contadorPlanes;
     private int contadorPQRS;
 
     public Servicios() {
         this.usuarios = new ArrayList<>();
-        this.PQRSs = new ArrayList<>();
         this.contadorPlanes = 0;
         this.contadorPQRS = 0;
     }
@@ -82,7 +80,7 @@ public class Servicios {
 
         Cliente cliente = (Cliente) usuario;
         cliente.getPlanes().add(new PlanMovil(LocalDate.now(), valorServicio, descuento, minutos, gigas));
-        
+        contadorPlanes++;
         return "Plan móvil registrado exitosamente";
     }
 
@@ -103,6 +101,7 @@ public class Servicios {
 
         Cliente cliente = (Cliente) usuario;
         cliente.getPlanes().add(new PlanHogar(LocalDate.now(), valorServicio, descuento, tipoTV, megasInternet));
+        contadorPlanes++;
         
         return "Plan hogar registrado exitosamente";
     }
