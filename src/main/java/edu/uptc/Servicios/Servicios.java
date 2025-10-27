@@ -3,17 +3,8 @@ package edu.uptc.Servicios;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import edu.uptc.Entidades.Asesor;
-import edu.uptc.Entidades.Cliente;
-import edu.uptc.Entidades.PlanHogar;
-import edu.uptc.Entidades.PlanMovil;
-import edu.uptc.Entidades.Usuario;
-import edu.uptc.exepciones.AsesorNocreado;
-import edu.uptc.exepciones.ClienteNocreado;
-import edu.uptc.exepciones.MegasNegativas;
-import edu.uptc.exepciones.MinutosGigasnegativos;
-import edu.uptc.exepciones.TipoTVincorrectos;
-import edu.uptc.exepciones.UsuarioNoencontrado;
+import edu.uptc.Entidades.*;
+import edu.uptc.exepciones.*;
 
 public class Servicios {
     private ArrayList<Usuario> usuarios;
@@ -108,7 +99,7 @@ public class Servicios {
         }
         
         if (tipoTV == null || (!tipoTV.equalsIgnoreCase("digital") && !tipoTV.equalsIgnoreCase("análoga"))) {
-            throw new TipoTVincorrectos("tipo de television invorrectos, ingrese los que son corretos");
+            throw new TipoTVincorrectos("tipo de television incorrectos, ingrese los que son correctos");
         }
 
         Cliente cliente = (Cliente) usuario;
