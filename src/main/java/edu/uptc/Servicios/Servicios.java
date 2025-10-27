@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import edu.uptc.Entidades.*;
+import edu.uptc.exepciones.*;
 
 public class Servicios {
     private ArrayList<Usuario> usuarios;
@@ -17,14 +18,14 @@ public class Servicios {
     }
 
     public String registrarCliente(String nombre, String apellido, LocalDate fechaNacimiento,
-            String pais, String estado, String ciudad, String contrasena) {
+            String pais, String estado, String ciudad, String contrasena) throws ClienteNocreado {
 
         if (nombre == null || apellido == null || fechaNacimiento == null ||
                 pais == null || estado == null || ciudad == null || contrasena == null ||
                 nombre.trim().isEmpty() || apellido.trim().isEmpty() ||
                 pais.trim().isEmpty() || estado.trim().isEmpty() ||
                 ciudad.trim().isEmpty() || contrasena.trim().isEmpty()) {
-            return "Algo salio mal"; //cambiar por excepcion
+            throw new ClienteNocreado("vuelve a ingresar el cliente, algo salio mal");
         }
 
         Cliente nuevoCliente = new Cliente(nombre, apellido, fechaNacimiento,
@@ -34,14 +35,14 @@ public class Servicios {
     }
 
     public String registrarAsesor(String nombre, String apellido, LocalDate fechaNacimiento,
-            String pais, String estado, String ciudad, String contrasena) {
+            String pais, String estado, String ciudad, String contrasena)throws AsesorNocreado {
 
         if (nombre == null || apellido == null || fechaNacimiento == null ||
                 pais == null || estado == null || ciudad == null || contrasena == null ||
                 nombre.trim().isEmpty() || apellido.trim().isEmpty() ||
                 pais.trim().isEmpty() || estado.trim().isEmpty() ||
                 ciudad.trim().isEmpty() || contrasena.trim().isEmpty()) {
-            return "Algo salio mal"; //cambiar por excepcion
+            throw new AsesorNocreado("vuelve a ingresar el asesor, algo salio mal");
         }
 
         Asesor nuevoAsesor = new Asesor(nombre, apellido, fechaNacimiento,
@@ -67,15 +68,16 @@ public class Servicios {
         return null;
     }
 
-    public String registrarPlanMovil(int idCliente, int minutos, double gigas, double valorServicio, double descuento) {
+    public String registrarPlanMovil(int idCliente, int minutos, double gigas, double valorServicio, double descuento)
+        throws UsuarioNoencontrado, MinutosGigasnegativos{
         Usuario usuario = buscarPorIdUsuarios(idCliente);
         
         if (usuario == null || !(usuario instanceof Cliente)) {
-            return "Cliente no encontrado"; //Cambiar por excepcion
+            throw new UsuarioNoencontrado("id o contraseña incorrectos, intenta volver a ingresar");
         }
         
         if (minutos <= 0 || gigas <= 0) {
-            return "Los valores de minutos y gigas deben ser positivos"; //cambiar por excepcion
+            throw new MinutosGigasnegativos("ingrese numeros mayores a 0 en las opciones giga y minutos");
         }
 
         Cliente cliente = (Cliente) usuario;
@@ -84,19 +86,20 @@ public class Servicios {
         return "Plan móvil registrado exitosamente";
     }
 
-    public String registrarPlanHogar(int idCliente, String tipoTV, int megasInternet, double valorServicio, double descuento) {
+    public String registrarPlanHogar(int idCliente, String tipoTV, int megasInternet, double valorServicio, double descuento)
+        throws UsuarioNoencontrado, MegasNegativas, TipoTVincorrectos {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
         
         if (usuario == null || !(usuario instanceof Cliente)) {
-            return "Cliente no encontrado"; //cambiar por excepcion
+            throw new UsuarioNoencontrado("id o contraseña incorrectos, intenta volver a ingresar");
         }
         
         if (megasInternet <= 0) {
-            return "Los megas de internet deben ser positivos"; //cambiar por excepcion
+           throw new MegasNegativas("ingrese un numero mayor a 0 en la megas");
         }
         
         if (tipoTV == null || (!tipoTV.equalsIgnoreCase("digital") && !tipoTV.equalsIgnoreCase("análoga"))) {
-            return "Tipo de TV inválido. Debe ser 'digital' o 'análoga'"; //cambiar por excepcion
+            throw new TipoTVincorrectos("tipo de television incorrectos, ingrese los que son correctos");
         }
 
         Cliente cliente = (Cliente) usuario;
@@ -105,5 +108,6 @@ public class Servicios {
         
         return "Plan hogar registrado exitosamente";
     }
+    
     
 }
