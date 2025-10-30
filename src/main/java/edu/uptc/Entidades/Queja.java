@@ -1,15 +1,15 @@
 package edu.uptc.Entidades;
 
-import java.time.LocalDate;
+
 
 public class Queja extends PQRS {
     private int nivelInconformismo;
     private boolean revisada;
 
-    public Queja(LocalDate fechaRegistro, String descripcion, int nivelInconformismo, boolean revisada, Plan planPQRS) {
-        super(fechaRegistro, descripcion, planPQRS);
+    public Queja(String descripcion, int nivelInconformismo, Plan planPQRS) {
+        super(descripcion, planPQRS);
         this.nivelInconformismo = nivelInconformismo;
-        this.revisada = revisada;
+        this.revisada = false;
     }
 
     public int getNivelInconformismo() {
@@ -33,10 +33,6 @@ public class Queja extends PQRS {
         return "Queja";
     }
 
-    @Override
-    public void procesar() {
-        this.revisada = true;
-    }
 
     @Override
     public String toString() {

@@ -1,15 +1,15 @@
 package edu.uptc.Entidades;
 
-import java.time.LocalDate;
+
 
 public class Peticion extends PQRS {
     private boolean resuelta;
     private String conceptoSolucion;
 
-    public Peticion(LocalDate fechaRegistro, String descripcion, boolean resuelta,
+    public Peticion(String descripcion,
             String conceptoSolucion, Plan planPQRS) {
-        super(fechaRegistro, descripcion, planPQRS);
-        this.resuelta = resuelta;
+        super(descripcion, planPQRS);
+        this.resuelta = false;
         this.conceptoSolucion = conceptoSolucion;
     }
 
@@ -32,12 +32,6 @@ public class Peticion extends PQRS {
     @Override
     public String obtenerTipo() {
         return "Petición";
-    }
-
-    @Override
-    public void procesar() {
-        resuelta = true;
-        conceptoSolucion = "La petición fue atendida exitosamente.";
     }
 
     @Override

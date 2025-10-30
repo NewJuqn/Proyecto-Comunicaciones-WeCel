@@ -1,13 +1,14 @@
 package edu.uptc.Entidades;
 
-import java.time.LocalDate;
 
 public class Reclamo extends PQRS {
     private String recursoCompensacion;
+    private boolean resuelta;
 
-    public Reclamo(LocalDate fechaRegistro, String descripcion, String recursoCompensacion, Plan planPQRS) {
-        super(fechaRegistro, descripcion, planPQRS);
+    public Reclamo(String descripcion, String recursoCompensacion, Plan planPQRS) {
+        super(descripcion, planPQRS);
         this.recursoCompensacion = recursoCompensacion;
+        this.resuelta = false;
     }
 
     public String getRecursoCompensacion() {
@@ -23,10 +24,6 @@ public class Reclamo extends PQRS {
         return "Reclamo";
     }
 
-    @Override
-    public void procesar() {
-        this.recursoCompensacion = "Compensación procesada.";
-    }
 
     @Override
     public String toString() {
@@ -34,6 +31,14 @@ public class Reclamo extends PQRS {
                 ", Fecha=" + super.getFechaRegistro() +
                 ", Descripción=" + super.getDescripcion() +
                 ", Recurso=" + recursoCompensacion + "]";
+    }
+
+    public boolean isResuelta() {
+        return resuelta;
+    }
+
+    public void setResuelta(boolean resuelta) {
+        this.resuelta = resuelta;
     }
 
     
