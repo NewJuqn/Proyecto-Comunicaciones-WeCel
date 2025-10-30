@@ -6,11 +6,10 @@ public class Peticion extends PQRS {
     private boolean resuelta;
     private String conceptoSolucion;
 
-    public Peticion(String descripcion,
-            String conceptoSolucion, Plan planPQRS) {
+    public Peticion(String descripcion, Plan planPQRS) {
         super(descripcion, planPQRS);
         this.resuelta = false;
-        this.conceptoSolucion = conceptoSolucion;
+        this.conceptoSolucion = "Sin solucion por ahora";
     }
 
     public boolean isResuelta() {

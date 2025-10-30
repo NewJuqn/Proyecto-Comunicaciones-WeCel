@@ -4,9 +4,9 @@ package edu.uptc.Entidades;
 public class Sugerencia extends PQRS {
     private int nivelImportancia;
 
-    public Sugerencia(String descripcion, int nivelImportancia, Plan planPQRS) {
+    public Sugerencia(String descripcion, Plan planPQRS) {
         super(descripcion, planPQRS);
-        this.nivelImportancia = nivelImportancia;
+        this.nivelImportancia = 0;
     }
 
     public int getNivelImportancia() {
