@@ -2,15 +2,17 @@ package edu.uptc.Servicios;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import edu.uptc.Entidades.*;
 import edu.uptc.exepciones.*;
 
 public class Servicios {
     private TreeMap<Integer, Usuario> usuarios;
-
+    private TreeSet<PQRS> PQRSlista;
     private int contadorPlanes;
     private int contadorPQRS;
 
@@ -18,6 +20,7 @@ public class Servicios {
         this.usuarios = new TreeMap<>();
         this.contadorPlanes = 0;
         this.contadorPQRS = 0;
+        this.PQRSlista = new TreeSet<>(Comparator.comparing(PQRS::getFechaRegistro).reversed());
     }
 
     public String registrarCliente(String nombre, String apellido, LocalDate fechaNacimiento,
@@ -108,7 +111,7 @@ public class Servicios {
         return "Plan hogar registrado exitosamente";
     }
 
-    public String registrarPQRS(int idCliente, String tipo, String descripcion, Plan planPQRS)
+    public String registrarPQRS(int idCliente, int tipo, String descripcion, Plan planPQRS)
             throws UsuarioNoencontrado {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
 
@@ -119,24 +122,25 @@ public class Servicios {
         Cliente cliente = (Cliente) usuario;
         PQRS nuevaPQRS;
 
-        switch (tipo.toLowerCase()) {
-            case "peticion":
+        switch (tipo) {
+            case 1:
                 nuevaPQRS = new Peticion(descripcion, planPQRS);
                 break;
-            case "queja":
+            case 2:
                 nuevaPQRS = new Queja(descripcion, planPQRS);
                 break;
-            case "reclamo":
+            case 3:
                 nuevaPQRS = new Reclamo(descripcion, planPQRS);
                 break;
-            case "sugerencia":
-                nuevaPQRS = new Sugerencia(descripcion,planPQRS);
+            case 4:
+                nuevaPQRS = new Sugerencia(descripcion, planPQRS);
                 break;
             default:
                 return "Tipo de PQRS no válido";
         }
 
         cliente.getPQRSs().add(nuevaPQRS);
+        PQRSlista.add(nuevaPQRS);
         contadorPQRS++;
         return "PQRS registrada exitosamente";
     }
@@ -157,6 +161,49 @@ public class Servicios {
         }
         Cliente cliente = (Cliente) usuario;
         return cliente.getPQRSs();
+    }
+
+    public String obtenerTodosPQRS() throws PQRSNoEncontrada {
+        if (PQRSlista == null || PQRSlista.isEmpty()) {
+            throw new PQRSNoEncontrada("No hay PQRS registradas en el sistema.");
+        }
+
+        StringBuilder texto = new StringBuilder();
+
+        for (PQRS pqrs : PQRSlista) {
+            texto.append("ID: ").append(pqrs.getIdPQRS())
+                    .append(" - Fecha: ").append(pqrs.getFechaRegistro())
+                    .append(" - Tipo: ").append(pqrs.obtenerTipo())
+                    .append(" - Descripción: ").append(pqrs.getDescripcion())
+                    .append("\n");
+
+            if (pqrs instanceof Peticion) {
+                Peticion pet = (Peticion) pqrs;
+                texto.append("   [Petición] Resuelta: ").append(pet.isResuelta())
+                        .append(" | Concepto solución: ").append(pet.getConceptoSolucion())
+                        .append("\n");
+            } else if (pqrs instanceof Queja) {
+                Queja queja = (Queja) pqrs;
+                texto.append("   [Queja] Nivel inconformismo: ").append(queja.getNivelInconformismo())
+                        .append(" | Revisada: ").append(queja.isRevisada())
+                        .append("\n");
+            } else if (pqrs instanceof Reclamo) {
+                Reclamo reclamo = (Reclamo) pqrs;
+                texto.append("   [Reclamo] Recurso compensación: ").append(reclamo.getRecursoCompensacion())
+                        .append(" | Resuelta: ").append(reclamo.isResuelta())
+                        .append("\n");
+            } else if (pqrs instanceof Sugerencia) {
+                Sugerencia sug = (Sugerencia) pqrs;
+                texto.append("   [Sugerencia] Nivel importancia: ").append(sug.getNivelImportancia())
+                        .append("\n");
+            } else {
+                texto.append("   [Tipo desconocido]\n");
+            }
+
+            texto.append("\n");
+        }
+
+        return texto.toString();
     }
 
     public ArrayList<Plan> obtenerPlanesCliente(int idCliente) throws UsuarioNoencontrado {
