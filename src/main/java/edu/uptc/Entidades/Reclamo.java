@@ -5,9 +5,9 @@ public class Reclamo extends PQRS {
     private String recursoCompensacion;
     private boolean resuelta;
 
-    public Reclamo(String descripcion, String recursoCompensacion, Plan planPQRS) {
+    public Reclamo(String descripcion, Plan planPQRS) {
         super(descripcion, planPQRS);
-        this.recursoCompensacion = recursoCompensacion;
+        this.recursoCompensacion = "Por insertar";
         this.resuelta = false;
     }
 

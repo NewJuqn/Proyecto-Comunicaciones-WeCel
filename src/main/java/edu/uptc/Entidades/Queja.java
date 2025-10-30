@@ -6,9 +6,9 @@ public class Queja extends PQRS {
     private int nivelInconformismo;
     private boolean revisada;
 
-    public Queja(String descripcion, int nivelInconformismo, Plan planPQRS) {
+    public Queja(String descripcion, Plan planPQRS) {
         super(descripcion, planPQRS);
-        this.nivelInconformismo = nivelInconformismo;
+        this.nivelInconformismo = 0;
         this.revisada = false;
     }
 

@@ -38,7 +38,7 @@ public class Servicios {
     }
 
     public String registrarAsesor(String nombre, String apellido, LocalDate fechaNacimiento,
-            String pais, String estado, String ciudad, String contrasena)throws AsesorNocreado {
+            String pais, String estado, String ciudad, String contrasena) throws AsesorNocreado {
 
         if (nombre == null || apellido == null || fechaNacimiento == null ||
                 pais == null || estado == null || ciudad == null || contrasena == null ||
@@ -54,26 +54,26 @@ public class Servicios {
         return "Asesor registrado";
     }
 
-    public Usuario buscarPorIdUsuarios(int id){
+    public Usuario buscarPorIdUsuarios(int id) {
         return usuarios.get(id);
     }
 
-    public Usuario login(int id, String contrasena){
+    public Usuario login(int id, String contrasena) {
         Usuario usuarioEncontrado = buscarPorIdUsuarios(id);
-        if (usuarioEncontrado!=null && usuarioEncontrado.getContrasena().equalsIgnoreCase(contrasena)) {
+        if (usuarioEncontrado != null && usuarioEncontrado.getContrasena().equalsIgnoreCase(contrasena)) {
             return usuarioEncontrado;
         }
         return null;
     }
 
     public String registrarPlanMovil(int idCliente, int minutos, double gigas, double valorServicio, double descuento)
-        throws UsuarioNoencontrado, MinutosGigasnegativos{
+            throws UsuarioNoencontrado, MinutosGigasnegativos {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
-        
+
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("id o contraseña incorrectos, intenta volver a ingresar");
         }
-        
+
         if (minutos <= 0 || gigas <= 0) {
             throw new MinutosGigasnegativos("ingrese numeros mayores a 0 en las opciones giga y minutos");
         }
@@ -84,18 +84,19 @@ public class Servicios {
         return "Plan móvil registrado exitosamente";
     }
 
-    public String registrarPlanHogar(int idCliente, String tipoTV, int megasInternet, double valorServicio, double descuento)
-        throws UsuarioNoencontrado, MegasNegativas, TipoTVincorrectos {
+    public String registrarPlanHogar(int idCliente, String tipoTV, int megasInternet, double valorServicio,
+            double descuento)
+            throws UsuarioNoencontrado, MegasNegativas, TipoTVincorrectos {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
-        
+
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("id o contraseña incorrectos, intenta volver a ingresar");
         }
-        
+
         if (megasInternet <= 0) {
-           throw new MegasNegativas("ingrese un numero mayor a 0 en la megas");
+            throw new MegasNegativas("ingrese un numero mayor a 0 en la megas");
         }
-        
+
         if (tipoTV == null || (!tipoTV.equalsIgnoreCase("digital") && !tipoTV.equalsIgnoreCase("análoga"))) {
             throw new TipoTVincorrectos("tipo de television incorrectos, ingrese los que son correctos");
         }
@@ -103,48 +104,48 @@ public class Servicios {
         Cliente cliente = (Cliente) usuario;
         cliente.getPlanes().add(new PlanHogar(LocalDate.now(), valorServicio, descuento, tipoTV, megasInternet));
         contadorPlanes++;
-        
+
         return "Plan hogar registrado exitosamente";
     }
-    
-    public String registrarPQRS(int idCliente, String tipo, String descripcion, Plan planPQRS) 
+
+    public String registrarPQRS(int idCliente, String tipo, String descripcion, Plan planPQRS)
             throws UsuarioNoencontrado {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
-        
+
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("Cliente no encontrado");
         }
 
         Cliente cliente = (Cliente) usuario;
         PQRS nuevaPQRS;
-        
+
         switch (tipo.toLowerCase()) {
             case "peticion":
-                nuevaPQRS = new Peticion(descripcion,  "Sin solucion por ahora", planPQRS);
+                nuevaPQRS = new Peticion(descripcion, planPQRS);
                 break;
             case "queja":
-                nuevaPQRS = new Queja(descripcion, 0,  planPQRS);
+                nuevaPQRS = new Queja(descripcion, planPQRS);
                 break;
             case "reclamo":
-                nuevaPQRS = new Reclamo(descripcion, "", planPQRS);
+                nuevaPQRS = new Reclamo(descripcion, planPQRS);
                 break;
             case "sugerencia":
-                nuevaPQRS = new Sugerencia(descripcion, 0, planPQRS);
+                nuevaPQRS = new Sugerencia(descripcion,planPQRS);
                 break;
             default:
                 return "Tipo de PQRS no válido";
         }
-        
+
         cliente.getPQRSs().add(nuevaPQRS);
         contadorPQRS++;
         return "PQRS registrada exitosamente";
     }
 
-    public LinkedList<PQRS> obtenerTodasPQRSAsesor(int idAsesor) throws UsuarioNoencontrado{
-       Usuario usuario = buscarPorIdUsuarios(idAsesor);
+    public LinkedList<PQRS> obtenerTodasPQRSAsesor(int idAsesor) throws UsuarioNoencontrado {
+        Usuario usuario = buscarPorIdUsuarios(idAsesor);
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("Cliente no encontrado");
-        } 
+        }
         Asesor asesor = (Asesor) usuario;
         return asesor.getSolicitudesGestionadas();
     }
@@ -158,7 +159,7 @@ public class Servicios {
         return cliente.getPQRSs();
     }
 
-    public ArrayList<Plan> obtenerPlanesCliente(int idCliente) throws UsuarioNoencontrado{
+    public ArrayList<Plan> obtenerPlanesCliente(int idCliente) throws UsuarioNoencontrado {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("Cliente no encontrado");
@@ -167,7 +168,7 @@ public class Servicios {
         return cliente.getPlanes();
     }
 
-    public String solucionarPQRS(int idAsesor, PQRS pqrs, String solucion, int nivelesAux) 
+    public String solucionarPQRS(int idAsesor, PQRS pqrs, String solucion, int nivelesAux)
             throws UsuarioNoencontrado {
         Usuario usuario = buscarPorIdUsuarios(idAsesor);
         if (usuario == null || !(usuario instanceof Asesor)) {
@@ -203,7 +204,7 @@ public class Servicios {
         return "PQRS solucionada exitosamente";
     }
 
-    public String modificarPQRS(int idCliente, PQRS pqrs, String nuevaDescripcion) 
+    public String modificarPQRS(int idCliente, PQRS pqrs, String nuevaDescripcion)
             throws UsuarioNoencontrado {
         Usuario usuario = buscarPorIdUsuarios(idCliente);
         if (usuario == null || !(usuario instanceof Cliente)) {
