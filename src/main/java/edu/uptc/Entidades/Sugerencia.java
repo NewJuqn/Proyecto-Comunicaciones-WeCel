@@ -1,12 +1,11 @@
 package edu.uptc.Entidades;
 
-import java.time.LocalDate;
 
 public class Sugerencia extends PQRS {
     private int nivelImportancia;
 
-    public Sugerencia(LocalDate fechaRegistro, String descripcion, int nivelImportancia, Plan planPQRS) {
-        super(fechaRegistro, descripcion, planPQRS);
+    public Sugerencia(String descripcion, int nivelImportancia, Plan planPQRS) {
+        super(descripcion, planPQRS);
         this.nivelImportancia = nivelImportancia;
     }
 
@@ -23,10 +22,6 @@ public class Sugerencia extends PQRS {
         return "Sugerencia";
     }
 
-    @Override
-    public void procesar() {
-
-    }
 
     public void procesar(int nuevaImportancia) {
         setNivelImportancia(nuevaImportancia);

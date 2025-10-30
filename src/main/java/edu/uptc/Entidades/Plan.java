@@ -1,7 +1,6 @@
 package edu.uptc.Entidades;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public abstract class Plan {
     private int idPlan;
@@ -9,14 +8,12 @@ public abstract class Plan {
     private LocalDate fechaAdquisicion;
     private double valorServicio;
     private double descuento;
-    private ArrayList<PQRS> pqrsLista;
 
     public Plan(LocalDate fechaAdquisicion, double valorServicio, double descuento) {
         this.idPlan = contadorID++;
         this.fechaAdquisicion = fechaAdquisicion;
         this.valorServicio = valorServicio;
         this.descuento = descuento;
-        this.pqrsLista = new ArrayList<>();
     }
 
     public abstract double calcularPagoMensual();
@@ -53,14 +50,6 @@ public abstract class Plan {
 
     public void setDescuento(double descuento) {
         this.descuento = descuento;
-    }
-
-    public ArrayList<PQRS> getPqrsLista() {
-        return pqrsLista;
-    }
-
-    public void setPqrsLista(ArrayList<PQRS> pqrsLista) {
-        this.pqrsLista = pqrsLista;
     }
 
     @Override

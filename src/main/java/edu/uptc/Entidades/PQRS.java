@@ -9,16 +9,14 @@ public abstract class PQRS {
     private String descripcion;
     private Plan planPQRS;
 
-    public PQRS(LocalDate fechaRegistro, String descripcion, Plan planPQRS) {
+    public PQRS(String descripcion, Plan planPQRS) {
         this.idPQRS = contadorId++;
-        this.fechaRegistro = fechaRegistro;
+        this.fechaRegistro = LocalDate.now();
         this.descripcion = descripcion;
         this.planPQRS = planPQRS;
     }
 
     public abstract String obtenerTipo();
-
-    public abstract void procesar();
 
     public int getIdPQRS() {
         return idPQRS;
