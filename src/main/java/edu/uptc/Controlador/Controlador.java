@@ -15,44 +15,44 @@ public class Controlador {
         this.servicios = new Servicios();
     }
 
-    public String registrarCliente(String nombre, String apellido, LocalDate fechaNacimiento,
-            String pais, String estado, String ciudad, String contrasena) throws ClienteNocreado {
-        return servicios.registrarCliente(nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
+    public String registrarCliente(String cedula,String nombre, String apellido, LocalDate fechaNacimiento,
+            String pais, String departamento, String ciudad, String contrasena) throws ClienteNocreado {
+        return servicios.registrarCliente(cedula, nombre, apellido, fechaNacimiento, pais, departamento, ciudad, contrasena);
     }
 
-    public String registrarAsesor(String nombre, String apellido, LocalDate fechaNacimiento,
-            String pais, String estado, String ciudad, String contrasena) throws AsesorNocreado {
-        return servicios.registrarAsesor(nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
+    public String registrarAsesor(String cedula, String nombre, String apellido, LocalDate fechaNacimiento,
+            String pais, String departamento, String ciudad, String contrasena) throws AsesorNocreado {
+        return servicios.registrarAsesor(cedula, nombre, apellido, fechaNacimiento, pais, departamento, ciudad, contrasena);
     }
 
-    public Usuario buscarPorIdUsuarios(int id) {
+    public Usuario buscarPorIdUsuarios(String id) throws UsuarioNoencontrado{
         return servicios.buscarPorIdUsuarios(id);
     }
 
-    public Usuario login(int id, String contrasena) {
+    public Usuario login(String id, String contrasena) throws ContrasenaVacia{
         return servicios.login(id, contrasena);
     }
 
-    public String registrarPlanMovil(int idCliente, int minutos, double gigas, double valorServicio, double descuento)
+    public String registrarPlanMovil(String idCliente, int minutos, double gigas, double valorServicio, double descuento)
             throws UsuarioNoencontrado, MinutosGigasnegativos {
         return servicios.registrarPlanMovil(idCliente, minutos, gigas, valorServicio, descuento);
     }
 
-    public String registrarPlanHogar(int idCliente, String tipoTV, int megasInternet, double valorServicio,
+    public String registrarPlanHogar(String idCliente, String tipoTV, int megasInternet, double valorServicio,
             double descuento) throws UsuarioNoencontrado, MegasNegativas, TipoTVincorrectos {
         return servicios.registrarPlanHogar(idCliente, tipoTV, megasInternet, valorServicio, descuento);
     }
 
-    public String registrarPQRS(int idCliente, int tipo, String descripcion, Plan planPQRS)
+    public String registrarPQRS(String idCliente, int tipo, String descripcion, Plan planPQRS)
             throws UsuarioNoencontrado {
         return servicios.registrarPQRS(idCliente, tipo, descripcion, planPQRS);
     }
 
-    public LinkedList<PQRS> obtenerTodasPQRSAsesor(int idAsesor) throws UsuarioNoencontrado {
+    public LinkedList<PQRS> obtenerTodasPQRSAsesor(String idAsesor) throws UsuarioNoencontrado {
         return servicios.obtenerTodasPQRSAsesor(idAsesor);
     }
 
-    public ArrayList<PQRS> obtenerPQRSCliente(int idCliente) throws UsuarioNoencontrado {
+    public ArrayList<PQRS> obtenerPQRSCliente(String idCliente) throws UsuarioNoencontrado {
         return servicios.obtenerPQRSCliente(idCliente);
     }
 
@@ -60,17 +60,29 @@ public class Controlador {
         return servicios.obtenerTodosPQRS();
     }
 
-    public ArrayList<Plan> obtenerPlanesCliente(int idCliente) throws UsuarioNoencontrado {
+    public ArrayList<Plan> obtenerPlanesCliente(String idCliente) throws UsuarioNoencontrado {
         return servicios.obtenerPlanesCliente(idCliente);
     }
 
-    public String solucionarPQRS(int idAsesor, PQRS pqrs, String solucion, int nivelesAux)
+    public String solucionarPQRS(String idAsesor, PQRS pqrs, String solucion, int nivelesAux)
             throws UsuarioNoencontrado {
         return servicios.solucionarPQRS(idAsesor, pqrs, solucion, nivelesAux);
     }
 
-    public String modificarPQRS(int idCliente, PQRS pqrs, String nuevaDescripcion)
+    public String modificarPQRS(String idCliente, PQRS pqrs, String nuevaDescripcion)
             throws UsuarioNoencontrado {
         return servicios.modificarPQRS(idCliente, pqrs, nuevaDescripcion);
+    }
+
+    public PQRS obtenerPQRSID(int idPQRS) throws PQRSNoEncontrada {
+        return servicios.obtenerPQRSID(idPQRS);
+    }
+
+    public Plan obtenerPlanID(int idPlan, String idUsuario) throws NoExistePlan{
+        return servicios.obtenerPlanID(idPlan, idUsuario);
+    }
+
+    public String eliminarPQRSCliente(int idPQRS, String idUsuario) throws PQRSNoEncontrada{
+        return servicios.eliminarPQRSCliente(idPQRS, idUsuario);
     }
 }
