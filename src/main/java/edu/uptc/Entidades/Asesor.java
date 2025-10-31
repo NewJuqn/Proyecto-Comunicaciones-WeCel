@@ -6,9 +6,9 @@ import java.util.LinkedList;
 public class Asesor extends Usuario {
     private LinkedList<PQRS> solicitudesGestionadas;
 
-    public Asesor(String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
+    public Asesor(String cedula,String nombre, String apellido, LocalDate fechaNacimiento, String pais, String departamento,
             String ciudad, String contrasena) {
-        super(nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
+        super(cedula,nombre, apellido, fechaNacimiento, pais, departamento, ciudad, contrasena);
         this.solicitudesGestionadas = new LinkedList<>();
     }
     

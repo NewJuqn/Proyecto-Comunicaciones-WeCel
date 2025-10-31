@@ -3,34 +3,26 @@ package edu.uptc.Entidades;
 import java.time.LocalDate;
 
 public class Usuario {
-    private int id;
-    private static int contadorID = 1000000;
+    private String cedula;
     private String nombre;
     private String apellido;
     private LocalDate fechaNacimiento;
     private String pais;
-    private String estado;
+    private String departamento;
     private String ciudad;
     private String contrasena;
-    public Usuario(String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
+    public Usuario(String cedula, String nombre, String apellido, LocalDate fechaNacimiento, String pais, String departamento,
             String ciudad, String contrasena) {
-        this.id = contadorID++;
+        this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fechaNacimiento = fechaNacimiento;
         this.pais = pais;
-        this.estado = estado;
+        this.departamento = departamento;
         this.ciudad = ciudad;
         this.contrasena = contrasena;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
@@ -64,12 +56,12 @@ public class Usuario {
         this.pais = pais;
     }
 
-    public String getEstado() {
-        return estado;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 
     public String getCiudad() {
@@ -90,9 +82,17 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
-                + fechaNacimiento + ", pais=" + pais + ", estado=" + estado + ", ciudad=" + ciudad + ", contrasena="
+        return "Usuario [cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento="
+                + fechaNacimiento + ", pais=" + pais + ", departamento=" + departamento + ", ciudad=" + ciudad + ", contrasena="
                 + contrasena + "]";
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
     }
 
     

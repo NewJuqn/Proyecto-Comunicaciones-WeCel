@@ -7,9 +7,9 @@ public class Cliente extends Usuario {
     private ArrayList<Plan> planes;
     private ArrayList<PQRS> PQRSs;
 
-    public Cliente(String nombre, String apellido, LocalDate fechaNacimiento, String pais, String estado,
+    public Cliente(String cedula,String nombre, String apellido, LocalDate fechaNacimiento, String pais, String departamento,
             String ciudad, String contrasena) {
-        super(nombre, apellido, fechaNacimiento, pais, estado, ciudad, contrasena);
+        super(cedula, nombre, apellido, fechaNacimiento, pais, departamento, ciudad, contrasena);
         this.planes = new ArrayList<>();
         this.PQRSs = new ArrayList<>();
     }
@@ -24,7 +24,7 @@ public class Cliente extends Usuario {
 
     @Override
     public String toString() {
-        return "Cliente [ID=" + getId() + ", Nombre=" + getNombre() + " " + getApellido() +
+        return "Cliente [cedula=" + getCedula() + ", Nombre=" + getNombre() + " " + getApellido() +
                 ", Planes=" + (planes != null ? planes.size() : 0) + "]";
     }
 
