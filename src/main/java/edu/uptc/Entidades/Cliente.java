@@ -4,11 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Cliente extends Usuario {
+    private String numeroCelular;
     private ArrayList<Plan> planes;
     private ArrayList<PQRS> PQRSs;
 
     public Cliente(String cedula,String nombre, String apellido, LocalDate fechaNacimiento, String pais, String departamento,
-            String ciudad, String contrasena) {
+            String ciudad, String numeroCelular,String contrasena) {
         super(cedula, nombre, apellido, fechaNacimiento, pais, departamento, ciudad, contrasena);
         this.planes = new ArrayList<>();
         this.PQRSs = new ArrayList<>();
@@ -22,18 +23,31 @@ public class Cliente extends Usuario {
         this.planes = planes;
     }
 
-    @Override
-    public String toString() {
-        return "Cliente [cedula=" + getCedula() + ", Nombre=" + getNombre() + " " + getApellido() +
-                ", Planes=" + (planes != null ? planes.size() : 0) + "]";
-    }
-
     public ArrayList<PQRS> getPQRSs() {
         return PQRSs;
     }
 
     public void setPQRSs(ArrayList<PQRS> pQRSs) {
         PQRSs = pQRSs;
+    }
+
+    public String getNumeroCelular() {
+        return numeroCelular;
+    }
+
+    public void setNumeroCelular(String numeroCelular) {
+        this.numeroCelular = numeroCelular;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cliente{");
+        sb.append("numeroCelular=").append(numeroCelular);
+        sb.append(", planes=").append(planes);
+        sb.append(", PQRSs=").append(PQRSs);
+        sb.append('}');
+        return sb.toString();
     }
 
 }
