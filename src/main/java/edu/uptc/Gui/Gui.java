@@ -167,11 +167,11 @@ public class Gui {
                         JOptionPane.INFORMATION_MESSAGE);
                 menuAdmin();
             } else if ("ASESOR".equals(tipoUsuario)) {
-                JOptionPane.showMessageDialog(null, "Login exitoso. Bienvenido " + id, "Login",
+                JOptionPane.showMessageDialog(null, "Login exitoso. Bienvenido " + usuarioLogueado.getNombre(), "Login",
                         JOptionPane.INFORMATION_MESSAGE);
                 menuAsesor();
             } else if ("CLIENTE".equals(tipoUsuario)) {
-                JOptionPane.showMessageDialog(null, "Login exitoso. Bienvenido " + id, "Login",
+                JOptionPane.showMessageDialog(null, "Login exitoso. Bienvenido " + usuarioLogueado.getNombre(), "Login",
                         JOptionPane.INFORMATION_MESSAGE);
                 menuCliente();
             }
