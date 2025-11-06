@@ -17,10 +17,7 @@ public class Servicios {
 
     public Servicios() {
         this.usuarios = new TreeMap<>();
-        this.PQRSlista = new TreeSet<>(
-            Comparator.comparing(PQRS::getFechaRegistro).reversed()
-                      .thenComparingInt(PQRS::getIdPQRS)
-        );
+        this.PQRSlista = new TreeSet<>(Comparator.comparing(PQRS::getFechaRegistro).thenComparingInt(PQRS::getIdPQRS));
         this.planesMovilesDisponibles = new ArrayList<>();
         this.planesHogarDisponibles = new ArrayList<>();
         usuarios.put("0", new Usuario("0", "admin", "", LocalDate.now(), "Colombia", "Boyaca", "Sogamoso", "012"));
@@ -82,7 +79,7 @@ public class Servicios {
         ArrayList<Asesor> listaAsesores = new ArrayList<>();
 
         for (Usuario usuario : usuarios.values()) {
-            if (usuario instanceof Asesor ) {
+            if (usuario instanceof Asesor) {
                 listaAsesores.add((Asesor) usuario);
             }
         }
@@ -142,7 +139,7 @@ public class Servicios {
             throw new MegasNegativas("ingrese un numero mayor a 0 en la megas");
         }
 
-        if (tipoTV == null || (!tipoTV.equalsIgnoreCase("digital") && !tipoTV.equalsIgnoreCase("análoga"))) {
+        if (tipoTV == null || (!tipoTV.equalsIgnoreCase("digital") && !tipoTV.equalsIgnoreCase("analoga"))) {
             throw new TipoTVincorrectos("tipo de television incorrectos, ingrese los que son correctos");
         }
 
@@ -271,7 +268,7 @@ public class Servicios {
     }
 
     public String solucionarPQRS(String idAsesor, int idPQRS, String solucion, int nivelesAux)
-            throws UsuarioNoencontrado, PQRSNoEncontrada{
+            throws UsuarioNoencontrado, PQRSNoEncontrada {
         Usuario usuario = buscarPorIdUsuarios(idAsesor);
         if (usuario == null || !(usuario instanceof Asesor)) {
             throw new UsuarioNoencontrado("Asesor no encontrado");
@@ -418,10 +415,8 @@ public class Servicios {
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("Cliente no encontrado");
         }
-
         Cliente cliente = (Cliente) usuario;
         Plan planSeleccionado = null;
-
         for (Plan planAux : planesMovilesDisponibles) {
             if (planAux.getIdPlan() == idPlan) {
                 planSeleccionado = planAux;
@@ -436,12 +431,19 @@ public class Servicios {
                 }
             }
         }
-
-        if (planSeleccionado != null) {
-            cliente.getPlanes().add(planSeleccionado);
-            return "Plan agregado exitosamente";
+        if (planSeleccionado == null) {
+            return "Plan no encontrado";
         }
-        return "Plan no encontrado";
+        if (planSeleccionado instanceof PlanMovil original) {
+            PlanMovil copia = new PlanMovil(LocalDate.now(), original.getValorServicio(), original.getDescuento(),
+                    original.getMinutos(), original.getGigas());
+            cliente.getPlanes().add(copia);
+        } else if (planSeleccionado instanceof PlanHogar original) {
+            PlanHogar copia = new PlanHogar(LocalDate.now(), original.getValorServicio(), original.getDescuento(),
+                    original.getTipoTV(), original.getMegas());
+            cliente.getPlanes().add(copia);
+        }
+        return "Plan contratado exitosamente";
     }
 
     public String solicitarPlanPersonalizado(String idCliente, String descripcion)
@@ -450,11 +452,12 @@ public class Servicios {
         if (usuario == null || !(usuario instanceof Cliente)) {
             throw new UsuarioNoencontrado("Cliente no encontrado");
         }
-
         Cliente cliente = (Cliente) usuario;
-        Peticion solicitud = new Peticion("Solicitud de plan personalizado: " + descripcion, null);
+        Plan planTemporal = new PlanMovil(LocalDate.now(), 0, 0, 0, 0);
+        Peticion solicitud = new Peticion("Solicitud de plan personalizado: " + descripcion,planTemporal);
         cliente.getPQRSs().add(solicitud);
         PQRSlista.add(solicitud);
+
         return "Solicitud de plan personalizado enviada exitosamente";
     }
 
@@ -476,7 +479,7 @@ public class Servicios {
         return plan != null ? plan.calcularPagoMensual() : 0;
     }
 
-    public Usuario obtenerUsuarioActual(String idCliente){
+    public Usuario obtenerUsuarioActual(String idCliente) {
         return usuarios.get(idCliente);
     }
 }

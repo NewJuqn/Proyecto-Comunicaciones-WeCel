@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import edu.uptc.Entidades.*;
 import edu.uptc.Servicios.Servicios;
-import edu.uptc.Entidades.Usuario;
 import edu.uptc.exepciones.*;
 
 public class Controlador {
