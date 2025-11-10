@@ -7,15 +7,38 @@ import edu.uptc.exepciones.*;
 import javax.swing.JOptionPane;
 
 import java.time.LocalDate;
-
+/**
+ * Graphical User Interface class that handles all user interactions through dialog boxes.
+ * This class manages the presentation layer of the application, displaying menus
+ * and handling user input for different types of users (Admin, Advisor, Client).
+ * 
+ * Uses Java Swing's JOptionPane for displaying menus and collecting user input.
+ * All business logic is delegated to the Controlador class.
+ * 
+ * @author Juan Jose Molina Chaparro, Julian Andres Gomez Solano
+ * @version 1.0
+ */
 public class Gui {
+    /** Controller instance that handles business logic */
     private Controlador controlador;
+    
+    /** Currently logged-in user */
     private Usuario usuarioLogueado;
+
+    /**
+    * Constructor that initializes the GUI with a controller.
+    * 
+    * @param controlador The controller instance to handle business operations
+    */
 
     public Gui(Controlador controlador) {
         this.controlador = controlador;
     }
-
+    /**
+     * Starts the main application loop.
+     * Displays the principal menu with options to login, register as client, or exit.
+     * Continues running until the user selects the exit option.
+     */
     public void iniciar() {
         int opcionPrincipal = 0;
         do {
@@ -53,8 +76,12 @@ public class Gui {
             }
         } while (opcionPrincipal != 3);
     }
-
-    private void menuAsesor() {
+    /**
+     * Displays the advisor menu with available operations.
+     * Includes options to view PQRS, solve PQRS, register plans for clients, and logout.
+     * Continues running until the advisor selects the logout option.
+     */
+    public void menuAsesor() {
         int opcionMenuAsesor = 0;
         do {
             try {
@@ -103,8 +130,13 @@ public class Gui {
             }
         } while (opcionMenuAsesor != 6);
     }
-
-    private void menuCliente() {
+    /**
+     * Displays the client menu with available operations.
+     * Includes options to register/view/modify/delete PQRS, view available plans,
+     * view contracted plans, request customized plans, and logout.
+     * Continues running until the client selects the logout option.
+     */
+    public void menuCliente() {
         int opcionMenuCliente = 0;
         do {
             try {
@@ -154,8 +186,13 @@ public class Gui {
             }
         } while (opcionMenuCliente != 8);
     }
-
-    private void opcionLogin() {
+    /**
+     * Handles the login process.
+     * Prompts for user ID and password, validates credentials through the controller,
+     * and redirects to the appropriate menu based on user type (Admin, Advisor, or Client).
+     * Sets the usuarioLogueado field upon successful login.
+     */
+    public void opcionLogin() {
         try {
             String id = JOptionPane.showInputDialog("Cedula:");
             String contrasena = JOptionPane.showInputDialog("Contraseña:");
@@ -181,8 +218,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, cv.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionRegistrarCliente() {
+    /**
+     * Handles client registration.
+     * Prompts for all required client information (ID, name, birth date, location, phone, password)
+     * and registers the client through the controller.
+     * Displays success or error messages accordingly.
+     */
+    public void opcionRegistrarCliente() {
 
         try {
             String cedula = JOptionPane.showInputDialog("Cedula:");
@@ -201,8 +243,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, cn.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionRegistrarAsesor() {
+    /**
+     * Handles advisor registration (Admin only).
+     * Prompts for all required advisor information (ID, name, birth date, location, password)
+     * and registers the advisor through the controller.
+     * Displays success or error messages accordingly.
+     */
+    public void opcionRegistrarAsesor() {
 
         try {
             String cedula = JOptionPane.showInputDialog("Cedula:");
@@ -219,8 +266,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, an.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void eliminarAsesor() {
+    /**
+     * Handles advisor deletion (Admin only).
+     * Prompts for the advisor's ID and attempts to delete them through the controller.
+     * An advisor can only be deleted if they have no managed requests.
+     * Displays success or error messages accordingly.
+     */
+    public void eliminarAsesor() {
         try {
             String cedula = JOptionPane.showInputDialog("Ingrese la cedula que desea eliminar:");
             JOptionPane.showMessageDialog(null, controlador.eliminarAsesor(cedula));
@@ -230,12 +282,19 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void verAsesores() {
+    /**
+     * Displays all registered advisors in the system (Admin only).
+     * Shows the list of advisors obtained from the controller.
+     */
+    public void verAsesores() {
         JOptionPane.showMessageDialog(null, controlador.obtenerAsesores());
     }
-
-    private void verPQRSAtendidasAsesor() {
+    /**
+     * Displays all PQRS managed by a specific advisor (Admin only).
+     * Prompts for the advisor's ID and shows their managed requests.
+     * Displays error message if advisor is not found.
+     */
+    public void verPQRSAtendidasAsesor() {
         try {
             String idAsesor = JOptionPane.showInputDialog("Cedula del asesor:");
             JOptionPane.showMessageDialog(null, controlador.obtenerTodasPQRSAsesor(idAsesor));
@@ -244,8 +303,13 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionRegistrarPlanMovil() {
+    /**
+     * Handles mobile plan registration for a client (Advisor only).
+     * Prompts for client ID and plan details (minutes, data, price, discount)
+     * and registers the plan through the controller.
+     * Validates that all numeric inputs are correct and greater than zero.
+     */
+    public void opcionRegistrarPlanMovil() {
         try {
             String id = JOptionPane.showInputDialog("Cedula:");
             int minutos = Integer.parseInt(JOptionPane.showInputDialog("Minutos:"));
@@ -263,8 +327,13 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionRegistrarPlanHogar() {
+    /**
+     * Handles home plan registration for a client (Advisor only).
+     * Prompts for client ID and plan details (TV type, internet speed, price, discount)
+     * and registers the plan through the controller.
+     * Validates TV type (digital/analoga) and that numeric inputs are correct and greater than zero.
+     */
+    public void opcionRegistrarPlanHogar() {
         try {
             String id = JOptionPane.showInputDialog("ID del cliente:");
             String tipoTV = JOptionPane.showInputDialog("Tipo TV (digital/análoga):");
@@ -284,8 +353,13 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionRegistrarPQRS() {
+    /**
+     * Handles PQRS registration for the logged-in client.
+     * Prompts for PQRS type (1=Petition, 2=Complaint, 3=Claim, 4=Suggestion),
+     * description, and associated plan ID.
+     * Creates the PQRS through the controller using the current logged-in client's ID.
+     */
+    public void opcionRegistrarPQRS() {
         try {
             String descripcion = JOptionPane.showInputDialog("Descripción de la PQRS:");
             int tipo = Integer.parseInt(JOptionPane.showInputDialog("""
@@ -310,8 +384,12 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionVerTodasPQRS() {
+    /**
+     * Displays all PQRS registered in the system (Advisor only).
+     * Shows detailed information for each PQRS including type-specific fields.
+     * Displays error message if no PQRS are found.
+     */
+    public void opcionVerTodasPQRS() {
         try {
             JOptionPane.showMessageDialog(null, controlador.obtenerTodosPQRS(), "Todas las PQRS",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -319,8 +397,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionVerPQRSCliente() {
+    /**
+     * Displays all PQRS for a specific client.
+     * For advisors: prompts for client ID
+     * For clients: automatically uses the logged-in client's ID
+     * Shows all PQRS with their details or error message if client not found.
+     */
+    public void opcionVerPQRSCliente() {
         try {
             String id = JOptionPane.showInputDialog("ID del cliente:");
             JOptionPane.showMessageDialog(null, controlador.obtenerPQRSCliente(id), "PQRS del Cliente",
@@ -331,8 +414,17 @@ public class Gui {
             JOptionPane.showMessageDialog(null, "ID invalido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionSolucionarPQRS() {
+    /**
+     * Handles PQRS resolution by an advisor.
+     * Prompts for advisor ID, then allows solving multiple PQRS in a loop (until -1 is entered).
+     * For each PQRS, requests: PQRS ID, solution description, and importance/dissatisfaction level.
+     * Different actions are taken based on PQRS type:
+     * - Petition: marks as resolved with solution concept
+     * - Complaint: sets dissatisfaction level
+     * - Claim: adds compensation resource
+     * - Suggestion: sets importance level
+     */
+    public void opcionSolucionarPQRS() {
         try {
             String idAsesor = JOptionPane.showInputDialog("ID del asesor:");
             int idPQRS;
@@ -357,8 +449,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, "Valores numericos invalidos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionModificarPQRS() {
+    /**
+     * Handles PQRS modification for a client.
+     * Prompts for user ID, PQRS ID, and new description.
+     * Only the client who owns the PQRS can modify it.
+     * Updates the PQRS description through the controller.
+     */
+    public void opcionModificarPQRS() {
         try {
             String idUsuario = JOptionPane.showInputDialog("ID del usuario:");
             int idPQRS = Integer.parseInt(JOptionPane.showInputDialog("ID de la PQRS a modificar:"));
@@ -376,8 +473,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, "Valores numericos invalidos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void opcionEliminarPQRSCliente() {
+    /**
+     * Handles PQRS deletion for the logged-in client.
+     * Prompts for the PQRS ID to be deleted.
+     * Only the client who owns the PQRS can delete it.
+     * Removes the PQRS from both the client's list and the system's global list.
+     */
+    public void opcionEliminarPQRSCliente() {
         try {
             int idPQRS = Integer.parseInt(JOptionPane.showInputDialog("ID de la PQRS a eliminar:"));
             JOptionPane.showMessageDialog(null,
@@ -390,8 +492,12 @@ public class Gui {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void menuAdmin() {
+    /**
+     * Displays the administrator menu with available operations.
+     * Includes options to manage advisors, view PQRS, create plan templates, and logout.
+     * Continues running until the admin selects the logout option.
+     */
+    public void menuAdmin() {
         int opcionmenuAdmin = 0;
         do {
             try {
@@ -438,8 +544,13 @@ public class Gui {
             }
         } while (opcionmenuAdmin != 7);
     }
-
-    private void crearPlanMovilAdmin() {
+    /**
+     * Creates a mobile plan template in the available plans catalog (Admin only).
+     * Prompts for plan details: minutes, data, price, and discount.
+     * This plan becomes available for clients to contract.
+     * Validates that minutes and data are greater than zero.
+     */
+    public void crearPlanMovilAdmin() {
         try {
             int minutos = Integer.parseInt(JOptionPane.showInputDialog("Minutos:"));
             double gigas = Double.parseDouble(JOptionPane.showInputDialog("Gigas:"));
@@ -451,8 +562,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void crearPlanHogarAdmin() {
+    /**
+     * Creates a home plan template in the available plans catalog (Admin only).
+     * Prompts for plan details: TV type, internet speed, price, and discount.
+     * This plan becomes available for clients to contract.
+     * Validates TV type and that internet megas are greater than zero.
+     */
+    public void crearPlanHogarAdmin() {
         try {
             String tipoTV = JOptionPane.showInputDialog("Tipo TV (digital/análoga):");
             int megas = Integer.parseInt(JOptionPane.showInputDialog("Megas de internet:"));
@@ -466,8 +582,14 @@ public class Gui {
             JOptionPane.showMessageDialog(null, ti.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void mostrarPlanesDisponibles() {
+    /**
+     * Displays all available plans (mobile and home) for the logged-in client to contract.
+     * Shows plan details and monthly payment for each plan.
+     * Allows the client to select a plan by entering its ID (or 0 to cancel).
+     * Upon selection, creates a copy of the plan and adds it to the client's contracted plans,
+     * then displays the monthly payment amount.
+     */
+    public void mostrarPlanesDisponibles() {
         try {
 
             int opcionID = Integer.parseInt(JOptionPane.showInputDialog(
@@ -485,8 +607,12 @@ public class Gui {
             JOptionPane.showMessageDialog(null, "ID inválido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void verMisPlanes() {
+    /**
+     * Displays all plans contracted by the logged-in client.
+     * Shows detailed information for each plan including monthly payment.
+     * Also displays the total monthly payment for all plans combined.
+     */
+    public void verMisPlanes() {
         try {
             String idCliente = usuarioLogueado.getCedula();
             JOptionPane.showMessageDialog(null, controlador.obtenerPlanesCliente(idCliente),
@@ -496,8 +622,13 @@ public class Gui {
             JOptionPane.showMessageDialog(null, un.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void solicitarPlanPersonalizado() {
+    /**
+    * Allows the logged-in client to request a customized plan.
+    * Prompts for a description of the desired plan.
+    * Creates a petition-type PQRS with the plan description for advisor review.
+    * Displays success.
+    */
+    public void solicitarPlanPersonalizado() {
         try {
             String descripcion = JOptionPane.showInputDialog("Describa el plan que desea:");
             if (descripcion != null && !descripcion.isEmpty()) {

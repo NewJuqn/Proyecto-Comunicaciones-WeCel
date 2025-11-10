@@ -1,16 +1,48 @@
 package edu.uptc.Entidades;
 
 import java.time.LocalDate;
-
+/**
+ * Represents a user in the system.
+ * This is the base class for all user types including clients and advisors.
+ * Contains common information such as personal identification, location, and authentication credentials.
+ */
 public class Usuario {
+    /** User's identification number (cedula) */
     private String cedula;
+    
+    /** User's first name */
     private String nombre;
+    
+    /** User's last name */
     private String apellido;
+    
+    /** User's date of birth */
     private LocalDate fechaNacimiento;
+    
+    /** User's country of residence */
     private String pais;
+    
+    /** User's department/state of residence */
     private String departamento;
+    
+    /** User's city of residence */
     private String ciudad;
+    
+    /** User's password for authentication */
     private String contrasena;
+
+    /**
+     * Constructs a new Usuario with the specified details.
+     *
+     * @param cedula User's identification number
+     * @param nombre User's first name
+     * @param apellido User's last name
+     * @param fechaNacimiento User's date of birth
+     * @param pais User's country
+     * @param departamento User's department/state
+     * @param ciudad User's city
+     * @param contrasena User's password
+     */
     public Usuario(String cedula, String nombre, String apellido, LocalDate fechaNacimiento, String pais, String departamento,
             String ciudad, String contrasena) {
         this.cedula = cedula;
@@ -23,11 +55,9 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
