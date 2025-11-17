@@ -1,12 +1,20 @@
 package edu.uptc.Gui;
 
-import edu.uptc.Controlador.Controlador;
-import edu.uptc.Entidades.Usuario;
-import edu.uptc.exepciones.*;
+import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
-import java.time.LocalDate;
+import edu.uptc.Controlador.Controlador;
+import edu.uptc.Entidades.Usuario;
+import edu.uptc.exepciones.AsesorNocreado;
+import edu.uptc.exepciones.ClienteNocreado;
+import edu.uptc.exepciones.ContrasenaVacia;
+import edu.uptc.exepciones.MegasNegativas;
+import edu.uptc.exepciones.MinutosGigasnegativos;
+import edu.uptc.exepciones.NoExistePlan;
+import edu.uptc.exepciones.PQRSNoEncontrada;
+import edu.uptc.exepciones.TipoTVincorrectos;
+import edu.uptc.exepciones.UsuarioNoencontrado;
 /**
  * Graphical User Interface class that handles all user interactions through dialog boxes.
  * This class manages the presentation layer of the application, displaying menus
@@ -45,7 +53,7 @@ public class Gui {
             try {
                 opcionPrincipal = Integer.parseInt(JOptionPane.showInputDialog(null, """
                          Seleccione una opcion:
-                        1 - Login
+                        1 - Login administrador
                         2 - Registrar Cliente
                         3 - Salir
                          """, "Menu Principal", JOptionPane.PLAIN_MESSAGE));
