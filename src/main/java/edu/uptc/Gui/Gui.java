@@ -53,7 +53,7 @@ public class Gui {
             try {
                 opcionPrincipal = Integer.parseInt(JOptionPane.showInputDialog(null, """
                          Seleccione una opcion:
-                        1 - Login administrador
+                        1 - Login 
                         2 - Registrar Cliente
                         3 - Salir
                          """, "Menu Principal", JOptionPane.PLAIN_MESSAGE));
